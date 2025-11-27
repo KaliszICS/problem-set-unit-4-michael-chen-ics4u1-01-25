@@ -1,4 +1,4 @@
-import java.util.LinkedList;
+import java.util.Random;
 
 public class Deck {
     private Card[] deck;
@@ -13,7 +13,7 @@ public class Deck {
         Card[] deck = new Card[52];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 13; j++) {
-                deck[i * 13  + j] = new Card(names[j], suits[i], j + 1);
+                deck[i * 13  + j] = new Card(names[j], suits[i], j + 1 + j * 4);
             }
         }
         this.deck = deck;
@@ -35,5 +35,32 @@ public class Deck {
         }
         this.deck = deck;
         return top;
+    }
+
+    public void shuffle() {
+        for (int i = 0; i < this.deck.length; i++) {
+            Random random = new Random();
+            int index = random.nextInt(i + 1);
+            Card temp = this.deck[i];
+            this.deck[i] = this.deck[index];
+            this.deck[index] = temp;
+        }
+    }
+
+    public void addCard(Card card) {
+        Card[] deck = new Card[this.deck.length + 1];
+        for (int i = 0; i < this.deck.length; i++) {
+            deck[i] = this.deck[i];
+        }
+        deck[this.deck.length] = card;
+        this.deck = deck;
+    }
+
+    public void reshuffle(Card[] cards) {
+        for (Card i : cards) {
+            addCard(i);
+        }
+
+        shuffle();
     }
 }
