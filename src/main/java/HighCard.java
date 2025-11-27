@@ -1,10 +1,17 @@
 import java.util.Scanner;
 
 public class HighCard {
+    /**
+     * Class containing the main method to run the High Card game
+     * @author Michael Chen
+     * @version 1.0.0
+     */
     public static void main(String[] args) {
+        // Initite a default deck and shuffle it
         Deck deck = new Deck();
         deck.shuffle();
 
+        // Open a new Scanner and ask for the names of player 1 and 2. Create new players with these names
         Scanner s = new Scanner(System.in);
         System.out.print("Enter your name player 1: ");
         String name1 = s.nextLine();
@@ -14,18 +21,23 @@ public class HighCard {
         Player player1 = new Player(name1, 0);
         Player player2 = new Player(name2, 0);
 
+        // Draw 5 cards into each player's hand
         for (int i = 0; i < 5; i++) {
             player1.draw(deck);
             player2.draw(deck);
         }
 
+        // Game logic, initialize points of both players at 0, run 5 times for 5 rounds
         int p1Points = 0;
         int p2Points = 0;
         for (int i = 5; i > 0; i--) {
+            // Highest value of each player's highest cards
             int p1Highest = 0;
+            int p2Highest = 0;
+            // Each player's highest cards as a Card
             Card p1High = player1.getHand()[0];
             Card p2High = player2.getHand()[0];
-            int p2Highest = 0;
+            // Loop through each player's hands and find the highest value cards. Sets the highest values and highest cards in variables
             for (int j = 0; j < i - 1; j++) {
                 if (player1.getHand()[j].getValue() > p1Highest) {
                     p1Highest = player1.getHand()[j].getValue();
@@ -36,6 +48,7 @@ public class HighCard {
                     p2High = player2.getHand()[j];
                 }
             }
+            // Prints each player's highest cards each round, awards points based on who has the higher card
             System.out.println("---------------------------------");
             System.out.println(name1 + "'s highest card is " + p1High.toString());
             System.out.println(name2 + "'s highest card is " + p2High.toString());
@@ -44,10 +57,12 @@ public class HighCard {
             } else {
                 p2Points++;
             }
+            // Discards the cards after they are played
             player1.discardCard(p1High, new DiscardPile());
             player2.discardCard(p2High, new DiscardPile());
         }
 
+        // Declares the winner of the game at the end based on who has more points
         if (p1Points > p2Points) {
             System.out.println(name1 + " wins!");
         } else {
