@@ -11,6 +11,9 @@ public class DiscardPile {
      * @param discard Array of cards
      */
     public DiscardPile(Card[] discard) {
+        if (discard == null) {
+            throw new NullPointerException("Discard pile cannot be null");
+        }
         this.discard = discard;
     }
 
@@ -41,7 +44,11 @@ public class DiscardPile {
      * Adds a card to the discard pile
      * @param card Card to add to the discard pile
      */
-    public void addCard(Card card) {
+    public void addCard(Card card) throws NullPointerException {
+        if (card == null) {
+            throw new NullPointerException("Card cannot be null");
+        }
+
         Card[] discard = new Card[this.discard.length + 1];
         for (int i = 0; i < this.discard.length; i++) {
             discard[i] = this.discard[i];
@@ -55,7 +62,11 @@ public class DiscardPile {
      * @param card Card to find and remove from the discard pile
      * @return Returns the card removed from the discard pile if card is in the discard pile, otherwise return null
      */
-    public Card removeCard(Card card) {
+    public Card removeCard(Card card) throws NullPointerException {
+        if (card == null) {
+            throw new NullPointerException("Card cannot be null");
+        }
+
         for (int i = 0; i < this.discard.length; i++) {
             if (this.discard[i].equals(card)) {
                 Card toDiscard = this.discard[i];

@@ -7,21 +7,26 @@ public class HighCard {
      * @version 1.0.0
      */
     public static void main(String[] args) {
-        // Initite a default deck and shuffle it
         Deck deck = new Deck();
         deck.shuffle();
 
-        // Open a new Scanner and ask for the names of player 1 and 2. Create new players with these names
         Scanner s = new Scanner(System.in);
         System.out.print("Enter your name player 1: ");
         String name1 = s.nextLine();
+        while (name1.strip().equals("")) {
+            System.out.print("Name must not be blank, enter a name: ");
+            name1 = s.nextLine();
+        }
         System.out.print("Enter your name player 2: ");
         String name2 = s.nextLine();
+        while (name2.strip().equals("") || name1.equals(name2)) {
+            System.out.print("Name must not be blank or the same as player 1, enter a name: ");
+            name2 = s.nextLine();
+        }
         s.close();
         Player player1 = new Player(name1, 0);
         Player player2 = new Player(name2, 0);
 
-        // Draw 5 cards into each player's hand
         for (int i = 0; i < 5; i++) {
             player1.draw(deck);
             player2.draw(deck);
@@ -57,12 +62,11 @@ public class HighCard {
             } else {
                 p2Points++;
             }
-            // Discards the cards after they are played
+
             player1.discardCard(p1High, new DiscardPile());
             player2.discardCard(p2High, new DiscardPile());
         }
 
-        // Declares the winner of the game at the end based on who has more points
         if (p1Points > p2Points) {
             System.out.println(name1 + " wins!");
         } else {

@@ -14,6 +14,9 @@ public class Deck {
      * @param deck Card array to build deck with
      */
     public Deck(Card[] deck) {
+        if (deck == null) {
+            throw new NullPointerException("Deck cannot be null");
+        }
         this.deck = deck;
     }
 
@@ -74,7 +77,10 @@ public class Deck {
      * Adds a card to the deck
      * @param card Card to add to the deck, adds the card to the end of the Card array
      */
-    public void addCard(Card card) {
+    public void addCard(Card card) throws NullPointerException {
+        if (card == null) {
+            throw new NullPointerException("Card cannot be null");
+        }
         Card[] deck = Arrays.copyOf(this.deck, this.deck.length + 1);
         deck[this.deck.length] = card;
         this.deck = deck;

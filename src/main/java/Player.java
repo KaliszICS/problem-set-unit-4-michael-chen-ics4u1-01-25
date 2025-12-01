@@ -87,9 +87,13 @@ public class Player {
      * @throws NullPointerException If deck is empty
      */
     public void draw(Deck deck) throws NullPointerException {
+        if (deck == null) {
+            throw new NullPointerException("Deck cannot be null");
+        }
+
         Card card = deck.draw();
         if (card == null) {
-            throw new NullPointerException("Deck is empty; returned null");
+            throw new NullPointerException("Cannot draw from an empty deck");
         }
         Card[] hand = Arrays.copyOf(this.hand, this.hand.length + 1);
         hand[this.hand.length] = card;
@@ -103,6 +107,9 @@ public class Player {
      * @throws NullPointerException If card is not found in hand
      */
     public void discardCard(Card card, DiscardPile discardPile) throws NullPointerException {
+        if (card == null || discardPile == null) {
+            throw new NullPointerException("Card or discard pile cannot be null");
+        }
         if (!Arrays.asList(hand).contains(card)) {
             throw new NullPointerException("Card not found in hand");
         }
@@ -124,9 +131,14 @@ public class Player {
      * @return Returns true if card is found in hand, otherwise returns false
      */
     public boolean returnCard(Card card, Deck deck) {
+        if (card == null || deck == null) {
+            throw new NullPointerException("Card or deck cannot be null");
+        }
+
         if (!Arrays.asList(hand).contains(card)) {
             return false;
         }
+
         Card[] hand = new Card[this.hand.length - 1];
         for (int j = 0, k = 0; j < this.hand.length; j++) {
             if (this.hand[j] != card) {
@@ -148,6 +160,7 @@ public class Player {
         if (this.hand.length == 0) {
             return "";
         }
+
         String discard = this.hand[0].getName() + " of " + this.hand[0].getSuit();
         for (Card i : this.hand) {
             discard += ", " + i.getName() + " of " + i.getSuit();
