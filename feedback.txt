@@ -1,0 +1,18 @@
+K(30%): 100%
+I(30%): 93%
+C(10%): 100%
+A(30%): 98%
+97.3%
+
+deck shuffle, random object creation should be outside of loop
+shuffle should allow cards to be swapped anywhere in the deck not just the index's before it.
+Your remove card method works but I would suggest just using the index of the card in the future instead of the whole card for omit it from your new array.
+Reuse your card toString method in your other classes!
+Your use of exceptions in the constructors is fine, but I would avoid adding exception throwing if it does not cause any problems with your class.  Maybe someone wants to make a name less or ageless character, that is up to them to check that usually not you. Keeping classes as flexible as possible without breaking should be a feature of them.
+NullPointerException throw in draw of your player is unnecessary.  Java will already throw one for you if you run the next line of code.
+Don't throw a nullPointerException when you can't find a card (discardCard in player).  This should be a different kind of exception (null did not cause this one).
+You also don't need to check card for null since discardPile will already do that for you.  Same for checking if the discardPile is null since that will get thrown as a NullPointerException for you.  You would need to reorder your code though to add the card first, then remove it from the hand.
+These points are for returnCard too.
+
+Your code was great and javadocs were very detailed!  Just some small things to improve in the future to make it a bit more standard and make your life a bit easier.
+Also just for the future, be careful of methods you use for backward compatibility.  Although strip is the way to remove trailing and leading whitespace in java 11 and on, before that it did not exist and programs used trim() instead. Using newer standard functions can be great but can also cause issues with old hardware.
